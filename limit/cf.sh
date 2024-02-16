@@ -1,21 +1,12 @@
 #!/bin/bash
-# //====================================================
-# //  Elvaretta Store - Since 2023
-# //====================================================
-# //  System Request : Debian 9+/Ubuntu 18.04+/20+
-# //  Author         : budi_spielberg
-# //  Develop        : Elvaretta Store
-# //  email          : budi.tejosari@gmail.com
-# //  telegram       : https://t.me/budi_spielberg
-# //====================================================
 MYIP=$(wget -qO- icanhazip.com);
 apt install jq curl -y
-#read -p "Masukan Domain (contoh : sdn8metim.my.id)" domen
+#read -p "Masukan Domain (contoh : kelas1)" domen
 DOMAIN=sdn8metim.my.id
 sub=$(</dev/urandom tr -dc a-z0-9 | head -c5)
 dns=${sub}.sdn8metim.my.id
 CF_ID=budi.spielberg@gmail.com
-CF_KEY=yhB_Tk60x1xDAz8PDampZOuRh23gSo_S4fSnfUOP
+CF_KEY=2854fa69580616c1cc364382f06b831344f54
 set -euo pipefail
 IP=$(wget -qO- icanhazip.com);
 echo "Updating DNS for ${dns}..."
@@ -29,7 +20,7 @@ RECORD=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_r
      -H "X-Auth-Key: ${CF_KEY}" \
      -H "Content-Type: application/json" | jq -r .result[0].id)
 
-if [[ "${RECORD}" -le 10 ]]; then
+if [[ "${#RECORD}" -le 10 ]]; then
      RECORD=$(curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
      -H "X-Auth-Email: ${CF_ID}" \
      -H "X-Auth-Key: ${CF_KEY}" \
